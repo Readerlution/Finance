@@ -8,7 +8,7 @@ This experiment’s purpose is to create an artificial portfolio of stocks and a
 
 1. **Constructing Portfolio**
 
-In this experiment, 10 stocks from the Korean stock markets (KOSPI and KOSDAQ) were selected. For demonstration purposes, initial investment was set to 10 billion won in total. First, the 10 stocks were selected with a focus on battery supplier industry, as they were hotly debated in the media during recent years. The following table lists the 10 stocks selected.
+In this experiment, 10 stocks from the Korean stock markets (KOSPI and KOSDAQ) were selected. For demonstration purposes, initial investment was set to 10 billion(KRW) in total. First, the 10 stocks were selected with a focus on battery supplier industry, as they were hotly debated in the media during recent years. The following table lists the 10 stocks selected.
 
 |**Count**|**종목명**|**종목코드**|**Listing**|
 | :-: | :-: | :-: | :-: |
@@ -27,8 +27,9 @@ Second, adjusted close data for each of the stocks were downloaded through yahoo
 
 Next, percent changes from each date’s adjusted closing prices (daily returns) were calculated. This gave us 740 data points, for each stock, to work with. Among these data points, first 239 days were used for calculating the Sharpe ratio. For demonstration purposes, risk free rate was assumed to be 2%. The results were as follows.
 
-Sharpe=MeanReturnStock-RiskFreeRateσStock
+$Sharpe Ratio = \frac{Mean\ Return_{stock} - Risk\ Free\ Rate}{σ_{Stock}}$
 
+Risk Free Rate = 2%
 
 |**종목명**|**Sharpe Ratio**|
 | :-: | :-: |
