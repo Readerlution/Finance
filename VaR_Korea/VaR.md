@@ -47,7 +47,7 @@ Risk Free Rate = 2%
 
 While it is certainly viable to construct a maximum Sharpe portfolio using optimization techniques, this experiment focused on allocating decent amount of capital to every stock selected. Instead, the formula used to allocate the investments were simply summing all the Sharpe ratios calculated and distribute by each of the stock’s share of the total.
 
-Allocationstock i=Sharpestock ii=1NSharpestock i
+$ Allocation_{i} = \frac{Sharpe_i}{\sum_{i=1}^N Sharpe_i} $
 
 
 |**종목명**|**Allocation (in KRW)**|
