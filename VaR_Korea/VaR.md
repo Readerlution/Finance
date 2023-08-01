@@ -68,7 +68,7 @@ $ Allocation_{i} = \frac{Sharpe_i}{\sum_{i=1}^N Sharpe_i} $
 
 Last 500 days’ daily returns from our data were used to estimate Value-at-Risk measures. The first method is the basic HAS approach. In this approach, for each date, the portfolio allocation is matched for each stock’s daily return. The portfolio return for each date is therefore,
 
-` `Portfolio returnt=t=1N Ri, t× Allocationi
+` `$Portfolio\ Return_t = \sum_{t=1}^{N} R_{i, t}\times Allocation_i$
 
 where subscript t = date and i = specific stock. The portfolio returns are easily calculated in vectorized form by using python pandas package’s dot multiplication with daily returns data frame and allocation data series.
 
