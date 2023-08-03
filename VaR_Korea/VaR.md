@@ -82,7 +82,7 @@ $ weight_i = \frac{λ^{n-i}(1-λ)}{1-λ^n} $
 
 Where, n = number of days and λ adjusts weight given to past day i. Higher the λ, bigger weight is given to day i and λ < 1 with Σ weight<sub>i</sub> = 1. 
 
-`	`This experiment used λ = .995 as the parameter for weight calculation. Once the weights are calculated for each date, the data can be sorted by portfolio dollar[^1] returns (losses) in ascending order. From the sorted data, 1-day VaR is estimated by cumulatively adding the weight on a rolling basis until the desired confidence level is reached or exceeded the first time. This data point represents the VaR based on historical data with age-weighted scheme. Our portfolio returned 1-day weighted VaR of 313,829,605 won and 524, 180, 519 won at 95% confidence level and 99% confidence level respectively.
+`	`This experiment used λ = .995 as the parameter for weight calculation. Once the weights are calculated for each date, the data can be sorted by portfolio dollar returns (losses) in ascending order. From the sorted data, 1-day VaR is estimated by cumulatively adding the weight on a rolling basis until the desired confidence level is reached or exceeded the first time. This data point represents the VaR based on historical data with age-weighted scheme. Our portfolio returned 1-day weighted VaR of 313,829,605 won and 524, 180, 519 won at 95% confidence level and 99% confidence level respectively.
 
 1. **Volatility Updating Approach**
 
