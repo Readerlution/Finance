@@ -78,7 +78,7 @@ where subscript t = date and i = specific stock. The portfolio returns are easil
 
 The age-weighted approach for calculating VaR under HSA, involves giving weight parameter for each of the portfolio returns calculated above by measuring distance from the most recent date to each of the data points. Formula can be seen below.				
 
-weighti=λn-i1-λ1-λn
+$ weight_i = \frac{λ^{n-i}(1-λ)}{1-λ^n} $
 
 Where, n = number of days and λ adjusts weight given to past day i. Higher the λ, bigger weight is given to day i and λ < 1 with Σ weight<sub>i</sub> = 1. 
 
