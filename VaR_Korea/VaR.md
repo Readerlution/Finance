@@ -88,7 +88,7 @@ Where, n = number of days and λ adjusts weight given to past day i. Higher the 
 
 HSA of VaR can also consider volatility changes in several ways. From these methods, the GARCH(1,1) model was chosen to measure each day’s volatility estimate. 
 
-σn2=γVL+αμn-12+Βσn-12
+$ σ_n^2 = γV_L + αμ_{n-1}^2 + Βσ_{n-1}^2 $
 
 σn2=ω+αμn-12+Βσn-12
 
