@@ -90,11 +90,11 @@ HSA of VaR can also consider volatility changes in several ways. From these meth
 
 $ σ_n^2 = γV_L + αμ_{n-1}^2 + Βσ_{n-1}^2 $
 
-σn2=ω+αμn-12+Βσn-12
+$ σ_n^2 = ω + αμ_{n-1}^2 + Βσ_{n-1}^2 $
 
 Where γ+α+Β=1 and α+Β<1. The ω, α, and Β were estimated by utilizing maximum likelihood method (MLE) for optimization.
 
-i=1N[-lnvi-μi2vi]
+$ i = \frac1N[-lnv_i-μi2vi] $
 **
 `	`Where N denotes the length of the return series.
 
