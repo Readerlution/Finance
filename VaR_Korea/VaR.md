@@ -94,7 +94,8 @@ $ σ_n^2 = ω + αμ_{n-1}^2 + Βσ_{n-1}^2 $
 
 Where γ+α+Β=1 and α+Β<1. The ω, α, and Β were estimated by utilizing maximum likelihood method (MLE) for optimization.
 
-$ i = \frac1N[-lnv_i-μi2vi] $
+$ i = \frac1N[-lnV_i-\frac{μ_i^2}{v_i}] $
+
 **
 `	`Where N denotes the length of the return series.
 
