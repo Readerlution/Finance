@@ -103,7 +103,7 @@ The arch package in python was used for the above mentioned optimization of GARC
 
 The conditional volatilities calculated then needs to be scaled by the most recent volatility to use the i th volatility as a scenario for what could happen between today and tomorrow. This provides us the following formula.
 
-Value under ith Scenario=Vn×Vi-1×Vi-Vi-1σn+1σiVi-1
+$ Value\ under\ ith\ Scenario = V_n \times \frac{V_{i-1} + (V_i - V_{i-1})σ_{n+1} / σ_i}{V_{i-1}} $
 
 In our experiment, the scaling was done by dividing the most recent volatility by each day’s conditional volatility (scaling factor), then multiplying the actual returns for each day to the scaling factor. 
 
