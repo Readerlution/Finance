@@ -1,0 +1,53 @@
+# %%
+from pykrx import stock
+import numpy as np
+import pandas as pd
+import json
+from datetime import datetime
+import finplot as fplt
+from io import StringIO
+from time import time
+
+with open("D:\Finance\Data\krx\KOSPI.json", "r") as f:
+    ticker_dict = json.load(f)
+
+with open("D:\Finance\Data\krx\KOSDAQ.json", "r") as f:
+    ticker_dict.update(json.load(f))
+
+# %%
+ticker = "하림"
+df = stock.get_market_ohlcv("20220102", datetime.today().strftime("%Y%m%d"), ticker_dict[ticker])
+df["Range"] = df["고가"] - df["저가"]
+df["RangePerVolume"] = (df["Range"] / df["거래량"]) * 100_000
+
+df.index.name = "Date"
+
+df.columns = ["Open", "High", "Low", "Close", "Volume", "Return", "Range", "RangePerVolume"]
+
+# Mid
+df["Mid"] = ((df["High"] + df["Low"]) / 2).round(2)
+
+# Marker for increased RangePerVolume
+rpv_up = df["RangePerVolume"].copy()
+rpv_up.loc[rpv_up < rpv_up.shift()] = np.nan
+
+# %%
+
+# Create axes
+ax, ax2, ax3 = fplt.create_plot(ticker, rows=3)
+
+# Plot candle sticks
+fplt.candlestick_ochl(df[["Open", "Close", "High", "Low"]], ax=ax)
+
+# Volume on ax2
+fplt.volume_ocv(df[["Open", "Close", "Volume"]], ax=ax2)
+
+# Range per volume on ax3
+fplt.volume_ocv(df[["Mid", "Close", "RangePerVolume"]], ax=ax3)
+fplt.plot(rpv_up + 1, style="^", ax=ax3, color="#ea9134") # Marker for uptick
+ax3.setXLink(ax)  # Links ax3 to ax for scale
+
+# %%
+fplt.show()
+
+# %%
