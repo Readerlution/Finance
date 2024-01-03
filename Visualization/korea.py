@@ -15,8 +15,12 @@ with open("D:\Finance\Data\krx\KOSDAQ.json", "r") as f:
     ticker_dict.update(json.load(f))
 
 # %%
-ticker = "하림"
-df = stock.get_market_ohlcv("20220102", datetime.today().strftime("%Y%m%d"), ticker_dict[ticker])
+ticker = "삼성전자"
+df = stock.get_market_ohlcv(
+    fromdate="20220102", 
+    todate=datetime.today().strftime("%Y%m%d"), 
+    ticker=ticker_dict[ticker],
+    )
 df["Range"] = df["고가"] - df["저가"]
 df["RangePerVolume"] = (df["Range"] / df["거래량"]) * 100_000
 
@@ -30,6 +34,11 @@ df["Mid"] = ((df["High"] + df["Low"]) / 2).round(2)
 # Marker for increased RangePerVolume
 rpv_up = df["RangePerVolume"].copy()
 rpv_up.loc[rpv_up < rpv_up.shift()] = np.nan
+
+# Mark extreme level of RangePerVolume
+deciles = df["RangePerVolume"].quantile(np.linspace(0.1, 1.0, num=10))
+extremes = df["RangePerVolume"].copy()
+extremes.loc[extremes < deciles[0.9]] = np.nan
 
 # %%
 
@@ -45,9 +54,13 @@ fplt.volume_ocv(df[["Open", "Close", "Volume"]], ax=ax2)
 # Range per volume on ax3
 fplt.volume_ocv(df[["Mid", "Close", "RangePerVolume"]], ax=ax3)
 fplt.plot(rpv_up + 1, style="^", ax=ax3, color="#ea9134") # Marker for uptick
+# Draw line for extreme level
+fplt.add_line((df.index[0], deciles[0.9]), (df.index[-1], deciles[0.9]), color="#0000FF", ax=ax3) 
+
 ax3.setXLink(ax)  # Links ax3 to ax for scale
 
 # %%
 fplt.show()
+
 
 # %%
