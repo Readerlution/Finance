@@ -7,6 +7,7 @@ from datetime import datetime
 import finplot as fplt
 from io import StringIO
 from time import time
+import pyqtgraph as pg
 
 with open("D:\Finance\Data\krx\KOSPI.json", "r") as f:
     ticker_dict = json.load(f)
@@ -14,8 +15,8 @@ with open("D:\Finance\Data\krx\KOSPI.json", "r") as f:
 with open("D:\Finance\Data\krx\KOSDAQ.json", "r") as f:
     ticker_dict.update(json.load(f))
 
-# %%
-ticker = "삼성전자"
+# %%     Retreieve and set data
+ticker = "하림"
 df = stock.get_market_ohlcv(
     fromdate="20220102", 
     todate=datetime.today().strftime("%Y%m%d"), 
@@ -40,7 +41,7 @@ deciles = df["RangePerVolume"].quantile(np.linspace(0.1, 1.0, num=10))
 extremes = df["RangePerVolume"].copy()
 extremes.loc[extremes < deciles[0.9]] = np.nan
 
-# %%
+# %%   Plotting
 
 # Create axes
 ax, ax2, ax3 = fplt.create_plot(ticker, rows=3)
@@ -55,9 +56,20 @@ fplt.volume_ocv(df[["Open", "Close", "Volume"]], ax=ax2)
 fplt.volume_ocv(df[["Mid", "Close", "RangePerVolume"]], ax=ax3)
 fplt.plot(rpv_up + 1, style="^", ax=ax3, color="#ea9134") # Marker for uptick
 # Draw line for extreme level
-fplt.add_line((df.index[0], deciles[0.9]), (df.index[-1], deciles[0.9]), color="#0000FF", ax=ax3) 
+fplt.add_line((df.index[0], deciles[0.9]), (df.index[-1], deciles[0.9]), color="#0000FF", ax=ax3)
 
 ax3.setXLink(ax)  # Links ax3 to ax for scale
+
+# %%    Additional functions
+def place_line(x, y):
+    pen=fplt._makepen(fplt.draw_line_color, style='.')
+    ax.price_line = pg.InfiniteLine(angle=180, movable=False, pen=pen)
+    x, = fplt._pdtime2index(ax, pd.Series([x])) # convert timestamp to x-index
+    ax.price_line.setPos((x,0))
+    ax.addItem(ax.price_line, ignoreBounds=True)
+
+fplt.set_time_inspector(place_line, ax=ax, when='click')
+
 
 # %%
 fplt.show()
