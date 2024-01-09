@@ -19,8 +19,11 @@ class FitOut(FitIn):
     message: str
 
 def build_model(ticker, use_new_data):
+    # Create DB connection
     connection =  sqlite3.connect(settings.db_name, check_same_thread=False)
+    # Create 'SQLRepository
     repo = SQLRepository(connection=connection)
+    # Create model
     model = GarchModel(ticker=ticker, use_new_data=use_new_data, repo=repo)
     return model
 
@@ -33,15 +36,19 @@ def hello():
 @app.post("/fit", status_code=200, response_model=FitOut)
 def fit_model(request: FitIn):
     # Create dictionary from 'payload'
-    response = request.dict()
+    response = request.model_dump()
 
     try:
+        # Build model
         model = build_model(ticker=request.ticker, use_new_data=request.use_new_data)
 
+        # Wrangle data
         model.wrangle_data(n_observations=request.n_observations)
 
+        # Fit model
         model.fit(p=request.p, q=request.q)
 
+        # Save model
         filename = model.dump()
 
         response["success"] = True

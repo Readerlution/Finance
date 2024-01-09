@@ -6,7 +6,7 @@ import pandas as pd
 from arch import arch_model
 from config import settings
 from data import AlphaVantageAPI, SQLRepository
-
+import pathlib
 
 class GarchModel:
     """Class for training GARCH model and generating predictions.
@@ -167,7 +167,8 @@ class GarchModel:
         # Create timestamp in ISO format
         timestamp = pd.Timestamp.now().isoformat()
         # Create filepath, including `self.model_directory`
-        filepath = os.path.join(self.model_directory, f"{timestamp}_{self.ticker}.pkl")
+
+        filepath = pathlib.Path(os.path.join(self.model_directory, f"{timestamp}_{self.ticker}.pkl"))
         # Save `self.model`
         joblib.dump(self.model, filepath)
         # Return filepath
@@ -189,4 +190,3 @@ class GarchModel:
         
         # Load model and attach to `self.model`
         self.model = joblib.load(model_path)
-
