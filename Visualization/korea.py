@@ -16,7 +16,7 @@ with open("D:\Finance\Data\krx\KOSDAQ.json", "r") as f:
     ticker_dict.update(json.load(f))
 
 # %%     Retreieve and set data
-ticker = "하림"
+ticker = "나노신소재"
 df = stock.get_market_ohlcv(
     fromdate="20220102", 
     todate=datetime.today().strftime("%Y%m%d"), 
