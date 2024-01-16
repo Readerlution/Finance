@@ -16,7 +16,7 @@ with open("D:\Finance\Data\krx\KOSDAQ.json", "r") as f:
     ticker_dict.update(json.load(f))
 
 # %%     Retreieve and set data
-ticker = "나노신소재"
+ticker = "하림"
 df = stock.get_market_ohlcv(
     fromdate="20220102", 
     todate=datetime.today().strftime("%Y%m%d"), 
@@ -32,14 +32,16 @@ df.columns = ["Open", "High", "Low", "Close", "Volume", "Return", "Range", "Rang
 # Mid
 df["Mid"] = ((df["High"] + df["Low"]) / 2).round(2)
 
+
+
 # Marker for increased RangePerVolume
 rpv_up = df["RangePerVolume"].copy()
 rpv_up.loc[rpv_up < rpv_up.shift()] = np.nan
 
 # Mark extreme level of RangePerVolume
-deciles = df["RangePerVolume"].quantile(np.linspace(0.1, 1.0, num=10))
-extremes = df["RangePerVolume"].copy()
-extremes.loc[extremes < deciles[0.9]] = np.nan
+decile_rpv = df["RangePerVolume"].quantile(np.linspace(0.1, 1.0, num=10))
+extremerpv = df["RangePerVolume"].copy()
+extremerpv.loc[extremerpv < decile_rpv[0.9]] = np.nan
 
 # %%   Plotting
 
@@ -56,7 +58,7 @@ fplt.volume_ocv(df[["Open", "Close", "Volume"]], ax=ax2)
 fplt.volume_ocv(df[["Mid", "Close", "RangePerVolume"]], ax=ax3)
 fplt.plot(rpv_up + 1, style="^", ax=ax3, color="#ea9134") # Marker for uptick
 # Draw line for extreme level
-fplt.add_line((df.index[0], deciles[0.9]), (df.index[-1], deciles[0.9]), color="#0000FF", ax=ax3)
+fplt.add_line((df.index[0], decile_rpv[0.9]), (df.index[-1], decile_rpv[0.9]), color="#0000FF", ax=ax3)
 
 ax3.setXLink(ax)  # Links ax3 to ax for scale
 
