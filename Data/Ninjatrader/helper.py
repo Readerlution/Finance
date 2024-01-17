@@ -5,8 +5,8 @@ import polars as pl
 
 def wrangle(csvfile):
     data = pl.read_csv(f"{csvfile}", has_header=False, separator=";")
-    l1_cols = ["Level", "dtype", "Timestamp", "offset", "Price", "Volume"]
-    l2_cols = ["Level", "dtype", "Timestamp", "offset", "Ops", "Position", "MarketMaker", "Price", "Volume"]
+    l1_cols = ["Level", "dtype", "Timestamp", "nano_ie7", "Price", "Volume"]
+    l2_cols = ["Level", "dtype", "Timestamp", "nano_ie7", "Ops", "Position", "MarketMaker", "Price", "Volume"]
     df_l1 = data.filter(pl.col("column_1") == "L1").select(data.columns[:6])
     df_l2 = data.filter(pl.col("column_1") == "L2")
 
