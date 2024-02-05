@@ -1,3 +1,4 @@
 {
-    "mojo.modularHomePath": "/home/pyquant/.modular"
+    "mojo.modularHomePath": "/home/pyquant/.modular",
+    "dotnet.defaultSolution": "MauiApp1.sln"
 }
