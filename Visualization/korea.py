@@ -93,6 +93,8 @@ ax3.setXLink(ax)  # Links ax3 to ax for scale
 reversal_marks = fplt.candlestick_ochl(reversals[["Open", "Close", "High", "Low"]], ax=ax)
 reversal_marks.colors.update(dict(bull_body='#31eeee', bear_body='#31eeee'))
 
+# Make rectangle
+
 # %%
 fplt.show()
 
